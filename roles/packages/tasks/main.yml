@@ -1,0 +1,6 @@
+---
+- include: apt.yml
+- include: base_packages.yml
+- include: ruby.yml
+- include: python3.yml
+- include: pip.yml

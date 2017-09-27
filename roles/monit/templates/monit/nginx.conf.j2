@@ -1,0 +1,6 @@
+# managed by ansible
+
+check process nginx with pidfile /var/run/nginx.pid
+  start program = "/etc/init.d/nginx start" with timeout 60 seconds
+  stop program  = "/etc/init.d/nginx stop"
+  if failed host 127.0.0.1 port 80 protocol http for 3 cycles then restart

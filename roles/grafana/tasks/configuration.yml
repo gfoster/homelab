@@ -1,0 +1,44 @@
+- name: Install the influxdb configuration file
+  copy:
+    src="roles/grafana/files/influx/influxdb.conf"
+    dest="/etc/influxdb/influxdb.conf"
+    mode=0644
+
+- name: Start the InfluxDB service
+  service:
+    name="influxdb"
+    enabled="yes"
+    state="restarted"
+
+- name: Install the grafana server configuration file
+  template:
+    src="roles/grafana/templates/grafana.ini.j2"
+    dest="/etc/grafana/grafana.ini"
+    mode=0644
+
+- name: Start the grafana server
+  service:
+   name="grafana-server"
+   enabled="yes"
+   state="restarted"
+
+- name: Create the metrics database
+  command: "influx -execute 'create database metrics'"
+  ignore_errors: yes
+
+- name: Make sure we have a default retention policy
+  command: "influx -execute 'create retention policy one_week_only on metrics duration 7d replication 1 default'"
+  ignore_errors: yes
+
+- command: "influx -execute 'create retention policy one_week_only on events duration 30d replication 1 default'"
+  ignore_errors: yes
+
+- name: monitor influx with monit
+  copy:
+    src="roles/grafana/files/influx/monit_influxdb.conf"
+    dest="/etc/monit/conf.d/influxdb.conf"
+    mode=0644
+  notify: reload monit
+
+- name: flush handlers
+  meta: flush_handlers

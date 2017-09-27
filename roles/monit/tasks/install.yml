@@ -1,0 +1,51 @@
+# http://mmonit.com/monit/dist/monit-5.11.tar.gz
+
+- name: get current monit version
+  shell: "monit -V | grep version | awk '{print $5}'"
+  register: current_monit_version
+  ignore_errors: True
+
+- name: download monit
+  get_url: >
+    url=http://mmonit.com/monit/dist/monit-{{ monit_version }}.tar.gz
+    dest=/tmp/monit-{{ monit_version }}.tar.gz
+  when: current_monit_version.stdout != monit_version
+
+- file: path=/tmp/monit-{{ monit_version }} state=directory
+  when: current_monit_version.stdout != monit_version
+
+- file: path=/var/monit        state=directory
+- file: path=/etc/monit/conf.d state=directory
+
+- name: extract monit
+  unarchive: >
+    copy=no
+    src=/tmp/monit-{{ monit_version }}.tar.gz
+    dest=/tmp/
+  when: current_monit_version.stdout != monit_version
+
+- name: build monit
+  shell: >
+    chdir=/tmp/monit-{{ monit_version }}
+    ./configure
+    && make
+    && make install
+  when: current_monit_version.stdout != monit_version
+
+- name: /etc/init.d/monit
+  template: src=monit_init.j2 dest=/etc/init.d/monit mode=0755 owner=root
+  notify: restart monit
+
+- name: /etc/monit/monitrc
+  template: src=monitrc.j2 dest=/etc/monit/monitrc mode=0600 owner=root
+  notify: restart monit
+
+- name: link up the monitrc
+  file: src=/etc/monit/monitrc dest=/usr/local/etc/monitrc state=link
+
+- name: set startup levels
+  shell: >
+    /usr/sbin/update-rc.d monit defaults
+
+- name: flush handlers
+  meta: flush_handlers

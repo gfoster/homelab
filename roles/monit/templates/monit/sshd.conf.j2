@@ -1,0 +1,9 @@
+# managed by ansible
+
+CHECK PROCESS sshd WITH PIDFILE /var/run/sshd.pid
+  START PROGRAM = "/usr/sbin/service ssh start"
+  
+  STOP PROGRAM  = "/usr/sbin/service ssh stop"
+  
+  IF FAILED PORT 22 PROTOCOL ssh 4 TIMES WITHIN 6 CYCLES 
+    then restart

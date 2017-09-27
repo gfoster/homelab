@@ -1,0 +1,16 @@
+---
+
+- name: restart nginx
+  monit:
+    name: nginx
+    state: restarted
+
+- name: reload nginx
+  service: name=nginx state=reloaded
+
+- name: restart collectd
+  service: name=collectd state=restarted
+
+- name: reload monit
+  service: name=monit state=restarted
+  ignore_errors: true

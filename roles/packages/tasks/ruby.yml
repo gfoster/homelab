@@ -1,0 +1,32 @@
+---
+
+- name: install ruby deps
+  apt: 'name={{ item }} state=present'
+  with_items:
+    - zlib1g
+    - zlib1g-dev
+    - libcurl4-openssl-dev
+    - libssl-dev
+    - libffi-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - libncurses5-dev
+    - libreadline-dev
+    - libyaml-dev
+    - libc6-dev
+    - libc6
+
+- name: install ruby packages
+  apt: 'name={{ item }} state=present'
+  with_items:
+     - "{{ ruby_version }}"
+     - "{{ ruby_version }}-dev"
+
+- name: update alternatives to use correct ruby version
+  command: 'update-alternatives --set ruby /usr/bin/{{ ruby_version }}'
+
+- name: update alternatives to use correct gem version
+  command: 'update-alternatives --set gem /usr/bin/{{ gem_version }}'
+
+- name: install bundler
+  command: 'gem install bundler'

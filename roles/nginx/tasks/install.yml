@@ -1,0 +1,25 @@
+- name: install nginx
+  apt: pkg=nginx state=present
+  notify:
+    - restart nginx
+
+- name: ensure the nginx dir
+  file: path=/etc/nginx state=directory owner=root
+
+- name: ensure the nginx log dir
+  file: path=/var/log/nginx state=directory owner=nobody group=nogroup
+
+- name: ensure the default site is removed
+  file: path=/etc/nginx/sites-{{ item }}/default state=absent
+  with_items:
+    - enabled
+    - available
+  notify:
+    - restart nginx
+
+- name: nginx.conf
+  template: src=templates/nginx.conf.j2 dest=/etc/nginx/nginx.conf
+  notify:
+    - reload nginx
+
+- meta: flush_handlers

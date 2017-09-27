@@ -1,0 +1,6 @@
+- name: monitor this system
+  template: src=monit/system.conf.j2 dest=/etc/monit/conf.d/system.conf
+  notify: reload monit
+
+- name: flush handlers
+  meta: flush_handlers

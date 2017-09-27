@@ -1,0 +1,5 @@
+---
+- include: install.yml
+- include: logrotate.yml
+- include: monit.yml
+- include: collectd.yml

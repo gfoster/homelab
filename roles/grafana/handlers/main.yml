@@ -1,0 +1,6 @@
+- name: restart mmonit
+  service: name=mmonit state=restarted
+
+- name: reload monit
+  service: name=monit state=reloaded
+  ignore_errors: true

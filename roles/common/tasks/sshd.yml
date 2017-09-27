@@ -1,0 +1,8 @@
+# - name: update the sshd config and restart
+#   template: src=sshd_config.j2 dest=/etc/ssh/sshd_config mode=0644 owner=root
+#   notify:
+#     - restart ssh
+
+- name: run sshd with monit
+  template: src=roles/monit/templates/monit/sshd.conf.j2 dest=/etc/monit/conf.d/sshd.conf
+  notify: restart ssh

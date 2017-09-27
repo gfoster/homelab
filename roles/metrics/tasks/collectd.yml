@@ -1,0 +1,21 @@
+- name: install main collectd.conf file
+  copy:
+    src="roles/metrics/files/collectd/collectd.conf"
+    dest="/etc/collectd/collectd.conf"
+    mode=0644
+
+- name: install influxdb plugin configuration
+  copy:
+    src="roles/metrics/files/collectd/influxdb.conf"
+    dest="/etc/collectd/collectd.conf.d/influxdb.conf"
+    mode=0644
+
+- file:
+    path=/usr/lib/collectd/plugins/exec
+    state=directory
+    mode=0755
+
+- name: restart collectd
+  service:
+    name="collectd"
+    state="restarted"

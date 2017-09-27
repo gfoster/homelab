@@ -1,0 +1,5 @@
+- name: monitor nginx with collectd
+  copy:
+    src=roles/nginx/files/collectd/nginx.conf
+    dest=/etc/collectd/collectd.conf.d/nginx.conf
+  notify: restart collectd

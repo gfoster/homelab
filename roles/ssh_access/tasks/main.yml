@@ -1,0 +1,58 @@
+---
+
+ - user: name=ubuntu state=absent remove=yes
+
+# Ensure SSH dirs
+- file: "path=/root/.ssh state=directory owner=root"
+- file: "path=/tmp/root/.ssh state=directory owner=root"
+
+# Ensure the root user's password
+- user: name=root password="{{ local_root_password }}"
+
+# Create the gfoster user
+- user: name=gfoster comment="Gary Foster" groups="sudo" shell="/bin/bash"
+- name: 'make gfoster a sudoer'
+  lineinfile: 'dest=/etc/sudoers state=present line="gfoster ALL=(ALL) NOPASSWD: ALL"'
+
+- file: "path=/home/gfoster/.ssh state=directory owner=gfoster"
+- file: "path=/tmp/gfoster/.ssh state=directory  owner=gfoster"
+
+# Config home
+- name: set up home directories
+  file: path={{ item }} state=directory owner=gfoster
+  with_items:
+    - '/home/gfoster/.ssh'
+
+- name: ensure that the SSH auth files starts empty
+  shell: 'rm -rf {{ item }}'
+  with_items:
+    - /tmp/root/.ssh/authorized_keys
+    - /tmp/gfoster/.ssh/authorized_keys
+
+- name: SSH access for ROOT user
+  authorized_key:
+    user: root
+    path: /tmp/root/.ssh/authorized_keys
+    key: "./roles/ssh_access/files/ssh/public/gfoster.pub"
+- shell: >
+    cp /tmp/root/.ssh/authorized_keys /root/.ssh/authorized_keys &&
+    chown root /root/.ssh/authorized_keys &&
+    chmod 0600 /root/.ssh/authorized_keys
+
+- name: SSH access for gfoster user
+  authorized_key:
+    user: "gfoster"
+    path: /tmp/gfoster/.ssh/authorized_keys
+    key: "./roles/ssh_access/files/ssh/public/gfoster.pub"
+- shell: >
+    cp /tmp/gfoster/.ssh/authorized_keys /home/gfoster/.ssh/authorized_keys &&
+    chown gfoster /home/gfoster/.ssh/authorized_keys &&
+    chmod 0600 /home/gfoster/.ssh/authorized_keys
+
+- name: Create gfoster user .ssh/config file
+  template:
+    src="roles/ssh_access/templates/ssh_config.j2"
+    dest="/home/gfoster/.ssh/config"
+    owner=gfoster
+    group=gfoster
+    mode=0600

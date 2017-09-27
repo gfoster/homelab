@@ -1,0 +1,7 @@
+- pip: name={{ item }}
+  with_items:
+    - redis
+    - mysql-python
+    - passlib
+    - boto
+    - awscli

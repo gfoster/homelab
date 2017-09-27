@@ -1,0 +1,55 @@
+---
+
+- name: install base packages
+  apt: 'name={{ item }} state=present'
+  with_items:
+     - build-essential
+     - htop
+     - unzip
+     - sendmail
+     - bc
+     - screen
+     - landscape-common
+     - sysstat
+     - git-core
+     - iftop
+     - ntp
+     - python-pip
+     - python-dev
+     - logrotate
+     - libpam0g
+     - libpam0g-dev
+     - libmysqlclient-dev
+     - collectd
+     - collectd-utils
+
+- apt: name=apparmor         state=absent
+
+- name: install extra (non apt) binaries
+  copy:
+    src: roles/packages/files/{{ item }}
+    dest: /usr/local/bin/{{ item }}
+    mode: 0755
+  with_items:
+    - peco
+    - pet
+
+- name: setup config directories for support files
+  file:
+    path: "{{ item.path }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.owner }}"
+    mode: 0755
+    state: directory
+  with_items:
+    - { path: /home/gfoster/.config/pet, owner: gfoster, mode: 0755 }
+
+- name: install various config files
+  template:
+    src: roles/packages/templates/{{ item.src }}
+    dest: "{{ item.dest }}"
+    mode: 0644
+    owner: "{{ item.owner }}"
+  with_items:
+    - { src: pet_config.toml.j2, dest: /home/gfoster/.config/pet/config.toml, owner: gfoster }
+    - { src: snippet.toml.j2, dest: /home/gfoster/.config/pet/snippet.toml, owner: gfoster }

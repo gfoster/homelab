@@ -1,0 +1,26 @@
+---
+
+- file: state=absent path=/root/apt_upgraded
+  when: apt_upgrade is defined and apt_upgrade == true
+
+- stat: path=/root/apt_upgraded
+  register: ansible_upgraded_file
+
+- name: Add webupd8 repo apt-key
+  apt_key: keyserver=keyserver.ubuntu.com id=EEA14886
+  when: not ansible_upgraded_file.stat.exists
+
+- name: apt sources
+  apt_repository: "update_cache=true state=present  repo='{{ item }}'"
+  when: not ansible_upgraded_file.stat.exists
+  with_items:
+    - "ppa:webupd8team/java"
+    - "ppa:ansible/ansible"
+    - "ppa:collectd/collectd-5.5"
+- apt: update_cache=yes cache_valid_time={{ 60 * 60 * 24 }}
+
+- apt: upgrade=dist
+  when: not ansible_upgraded_file.stat.exists
+  notify: touch apt upgrade file
+
+- meta: flush_handlers

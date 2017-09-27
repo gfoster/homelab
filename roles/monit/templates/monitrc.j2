@@ -1,0 +1,9 @@
+set daemon 30 with start delay 5
+
+set logfile syslog facility log_daemon
+
+set eventqueue
+    basedir /var/monit  # set the base directory where events will be stored
+    slots 10            # optionaly limit the queue size
+
+include /etc/monit/conf.d/*.conf

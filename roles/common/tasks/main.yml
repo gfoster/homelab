@@ -1,0 +1,6 @@
+---
+
+- include: sshd.yml
+- include: java.yml
+- include: logrotate.yml
+- include: known_hosts.yml

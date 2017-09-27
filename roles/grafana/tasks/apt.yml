@@ -1,0 +1,27 @@
+---
+
+- file: state=absent path=/root/apt_upgraded
+  when: apt_upgrade is defined and apt_upgrade == true
+
+- stat: path=/root/apt_upgraded
+  register: ansible_upgraded_file
+
+- name: Add packagecloud key
+  apt_key: url=https://packagecloud.io/gpg.key state=present
+
+- name: Add influxdb key
+  apt_key: url=https://repos.influxdata.com/influxdb.key state=present
+
+- name: apt sources
+  apt_repository: "update_cache=true state=present  repo='{{ item }}'"
+  with_items:
+    - "deb https://packagecloud.io/grafana/stable/debian/ wheezy main"
+    - "deb https://repos.influxdata.com/ubuntu {{ ansible_distribution_release }} stable"
+
+- apt: update_cache=yes
+
+- apt: upgrade=dist
+  when: not ansible_upgraded_file.stat.exists
+  notify: touch apt upgrade file
+
+- meta: flush_handlers

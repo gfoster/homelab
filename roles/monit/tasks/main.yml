@@ -1,0 +1,5 @@
+---
+- include: install.yml
+- include: system.yml
+- include: pagerduty.yml
+- include: remote-url-check.yml

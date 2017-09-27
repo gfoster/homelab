@@ -1,0 +1,19 @@
+# Ubuntu 16.04 doesn't come with python2 installed, which causes ansible to fail
+# so we run this first to make sure python2 is installed
+
+- hosts: ubuntu
+  become: true
+  gather_facts: false
+  pre_tasks:
+  - name: Install python2 for Ansible
+    raw: bash -c "test -e /usr/bin/python || (apt -qqy update && apt install -qqy python-minimal)"
+    register: output
+    changed_when: output.stdout != ""
+  - name: Gathering Facts
+    setup:
+  roles:
+    - { role: ssh_access, tags: [ 'ssh_access' ], become: yes }
+    - { role: packages,    tags: [ 'packages' ],    become: yes }
+    - { role: common,     tags: [ 'common' ],     become: yes }
+    - { role: monit,         tags: [ 'monit' ],          become: yes }
+    - { role: metrics,       tags: [ 'metrics' ],       become: yes }

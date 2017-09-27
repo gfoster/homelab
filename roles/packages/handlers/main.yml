@@ -1,0 +1,5 @@
+---
+
+- name: touch apt upgrade file
+  file: path=/root/apt_upgraded state=touch
+  become: yes
