@@ -1,5 +1,7 @@
 ---
 
+- include: users.yml
+- include: ssh_access.yml
 - include: sshd.yml
 - include: java.yml
 - include: logrotate.yml

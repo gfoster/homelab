@@ -12,8 +12,7 @@
   - name: Gathering Facts
     setup:
   roles:
-    - { role: ssh_access, tags: [ 'ssh_access' ], become: yes }
-    - { role: packages,    tags: [ 'packages' ],    become: yes }
-    - { role: common,     tags: [ 'common' ],     become: yes }
-    - { role: monit,         tags: [ 'monit' ],          become: yes }
-    - { role: metrics,       tags: [ 'metrics' ],       become: yes }
+    - { role: common,        tags: [ 'common' ],      become: yes }
+    - { role: packages,      tags: [ 'packages' ],    become: yes }
+    - { role: monit,         tags: [ 'monit' ],       become: yes }
+    - { role: metrics,       tags: [ 'metrics' ],     become: yes }
