@@ -9,10 +9,11 @@
     raw: bash -c "test -e /usr/bin/python || (apt -qqy update && apt install -qqy python-minimal)"
     register: output
     changed_when: output.stdout != ""
-  - name: Gathering Facts
-    setup:
+
+- hosts: all
+  gather_facts: true
   roles:
     - { role: common,        tags: [ 'common' ],      become: yes }
-    - { role: packages,      tags: [ 'packages' ],    become: yes }
-    - { role: monit,         tags: [ 'monit' ],       become: yes }
-    - { role: metrics,       tags: [ 'metrics' ],     become: yes }
+#    - { role: packages,      tags: [ 'packages' ],    become: yes }
+#    - { role: monit,         tags: [ 'monit' ],       become: yes }
+#    - { role: metrics,       tags: [ 'metrics' ],     become: yes }

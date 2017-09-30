@@ -1,0 +1,17 @@
+[ubuntu]
+athena
+
+[webservers]
+athena
+
+[mysql]
+athena
+
+[redis]
+athena
+
+[grafana]
+athena
+
+[plex]
+athena

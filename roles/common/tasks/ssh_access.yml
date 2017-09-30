@@ -2,18 +2,18 @@
 
 - name: set up authorized_keys for user accounts
   authorized_key:
-    user: {{ item.username }}
+    user: "{{ item.username }}"
     state: present
-    key: "./roles/common/files/ssh/public/gfoster.pub"
+    key: "{{ lookup('file', '~gfoster/.ssh/id_rsa_personal.pub') }}"
     manage_dir: yes
     exclusive: yes
   with_items: "{{ user_accounts }}"
 
 - name: Create user .ssh/config file
   template:
-    src: "roles/ssh_access/templates/ssh_config.j2"
+    src: "roles/common/templates/ssh_config.j2"
     dest: "/home/{{ item.username }}/.ssh/config"
-    owner: {{ item.username }}
-    group: {{ item.username }}
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
     mode: 0600
   with_items: "{{ user_accounts }}"

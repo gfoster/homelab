@@ -1,8 +1,8 @@
 ---
 
-- include: users.yml
-- include: ssh_access.yml
-- include: sshd.yml
-- include: java.yml
-- include: logrotate.yml
-- include: known_hosts.yml
+- include_tasks: users.yml
+- include_tasks: ssh_access.yml
+#- include: sshd.yml
+#- include: java.yml
+#- include: logrotate.yml
+#- include: known_hosts.yml
