@@ -13,10 +13,7 @@
 - name: apt sources
   apt_repository: "update_cache=true state=present  repo='{{ item }}'"
   when: not ansible_upgraded_file.stat.exists
-  with_items:
-    - "ppa:webupd8team/java"
-    - "ppa:ansible/ansible"
-    - "ppa:collectd/collectd-5.5"
+  with_items: "{{ ppa_list }}"
 - apt: update_cache=yes cache_valid_time={{ 60 * 60 * 24 }}
 
 - apt: upgrade=dist

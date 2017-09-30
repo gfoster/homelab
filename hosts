@@ -4,10 +4,7 @@ athena
 [webservers]
 athena
 
-[mysql]
-athena
-
-[redis]
+[devservers]
 athena
 
 [grafana]

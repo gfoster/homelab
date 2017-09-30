@@ -19,14 +19,14 @@
 - name: install ruby packages
   apt: 'name={{ item }} state=present'
   with_items:
-     - "{{ ruby_version }}"
-     - "{{ ruby_version }}-dev"
+     - "ruby{{ ruby_version }}"
+     - "ruby{{ ruby_version }}-dev"
 
 - name: update alternatives to use correct ruby version
-  command: 'update-alternatives --set ruby /usr/bin/{{ ruby_version }}'
+  command: 'update-alternatives --set ruby /usr/bin/ruby{{ ruby_version }}'
 
 - name: update alternatives to use correct gem version
-  command: 'update-alternatives --set gem /usr/bin/{{ gem_version }}'
+  command: 'update-alternatives --set gem /usr/bin/gem{{ ruby_version }}'
 
 - name: install bundler
   command: 'gem install bundler'

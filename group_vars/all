@@ -1,4 +1,36 @@
 # -*- mode: yaml -*-
 
+ruby_version: 2.4
+
 user_accounts:
   - { username: "gfoster", comment: "Gary Foster", groups: "sudo", shell: "/bin/bash" }
+
+ppa_list:
+  - "ppa:webupd8team/java"
+  - "ppa:brightbox/ruby-ng"
+
+common_packages:
+  - build-essential
+  - htop
+  - unzip
+  - sendmail
+  - bc
+  - screen
+  - landscape-common
+  - sysstat
+  - git
+  - iftop
+  - ntp
+  - python-pip
+  - python-dev
+  - logrotate
+  - libpam0g
+  - libpam0g-dev
+  #- libmysqlclient-dev
+  #- collectd
+  #- collectd-utils
+  #- kvm
+  #- qemu-kvm
+  #- libvirt-bin
+  #- ubuntu-vm-builder
+  #- bridge-utils

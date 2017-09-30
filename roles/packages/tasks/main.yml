@@ -1,6 +1,6 @@
 ---
-- include: apt.yml
-- include: base_packages.yml
-- include: ruby.yml
-- include: python3.yml
-- include: pip.yml
+- include_tasks: apt.yml
+- include_tasks: base_packages.yml
+- include_tasks: ruby.yml
+- include_tasks: python3.yml
+- include_tasks: pip.yml
