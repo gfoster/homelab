@@ -3,6 +3,14 @@
     executable: pip3
     name: jupyter
 
+- apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - libjs-mathjax
+    - fonts-mathjax
+    - fonts-mathjax-extras
+
 - name: create the Jupyter user
   user:
     name: jupyter

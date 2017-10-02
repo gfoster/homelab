@@ -1,0 +1,9 @@
+- name: install addtional python3 modules
+  pip:
+    executable: pip3
+    state: latest
+    name: "{{ item }}"
+  with_items:
+      - scipy
+      - matplotlib
+      - numpy
