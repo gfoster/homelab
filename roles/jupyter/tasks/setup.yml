@@ -1,0 +1,34 @@
+- name: install Jupyter packages
+  pip:
+    executable: pip3
+    name: jupyter
+
+- name: create the Jupyter user
+  user:
+    name: jupyter
+    comment: "jupyter user"
+    shell: /bin/bash
+
+- name: set up the configuration file
+  file:
+    path: "~{{ jupyter_user}}/.jupyter"
+    state: directory
+    owner: "{{ jupyter_user}}"
+    group: "{{ jupyter_user }}"
+    mode: 0755
+
+- template:
+    src: roles/jupyter/templates/jupyter_notebook_config.py.j2
+    dest: "~{{ jupyter_user }}/.jupyter/jupyter_notebook_config.py"
+    owner: "{{ jupyter_user}}"
+    group: "{{ jupyter_user }}"
+    mode: 0644
+  notify: restart jupyter
+
+- name: create jupyter user notebook directory
+  file:
+    path: "~{{ jupyter_user}}/notebooks"
+    state: directory
+    owner: "{{ jupyter_user}}"
+    group: "{{ jupyter_user }}"
+    mode: 0755

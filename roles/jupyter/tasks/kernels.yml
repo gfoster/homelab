@@ -1,0 +1,13 @@
+- name: install additional jupyter kernels
+  pip:
+    executable: pip3
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - bash_kernel
+
+- name: enable extra jupyter kernels
+  shell: "/usr/bin/python3 -m {{ item }} install"
+  with_items:
+    - bash_kernel
+  notify: restart jupyter

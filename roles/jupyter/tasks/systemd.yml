@@ -1,0 +1,12 @@
+
+- name: create systemd service script
+  template:
+    src: roles/jupyter/templates/jupyter.service.j2
+    dest: /lib/systemd/system/jupyter.service
+    mode: 0644
+
+- name: enable jupyter via systemd
+  systemd:
+    name: jupyter
+    enabled: yes
+    state: started
