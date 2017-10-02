@@ -2,9 +2,11 @@
 
 - name: install base packages
   apt: 'name={{ item }} state=present'
-  with_items: "{{ packages }}"
+  with_items: "{{ common_packages }}"
 
-- apt: name=apparmor         state=absent
+- apt:
+    name: apparmor
+    state: absent
 
 - name: install extra (non apt) binaries
   copy:

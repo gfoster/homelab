@@ -1,7 +1,33 @@
-- pip: name={{ item }}
+- name: Upgrade pip to latest
+  pip:
+    name: pip
+    extra_args: --upgrade
+
+- name: Upgrade pip3 to latest
+  pip:
+    name: pip
+    extra_args: --upgrade
+    executable: pip3
+
+- name: install python 2 packages with pip
+  pip:
+    name: "{{ item }}"
+    state: latest
   with_items:
     - redis
     - mysql-python
+    - passlib
+    - boto
+    - awscli
+
+- name: install python 3 packages with pip3
+  pip:
+    name: "{{ item }}"
+    executable: pip3
+    state: latest
+  with_items:
+    - redis
+    # - mysql-python
     - passlib
     - boto
     - awscli

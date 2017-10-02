@@ -1,6 +1,8 @@
 # -*- mode: yaml -*-
 
 ruby_version: 2.4
+jupyter_server_port: 1111
+jupyter_user: jupyter
 
 user_accounts:
   - { username: "gfoster", comment: "Gary Foster", groups: "sudo", shell: "/bin/bash" }
@@ -11,6 +13,7 @@ ppa_list:
 
 common_packages:
   - build-essential
+  - pkg-config
   - htop
   - unzip
   - sendmail
@@ -23,10 +26,13 @@ common_packages:
   - ntp
   - python-pip
   - python-dev
+  - python3-pip
+  - python3-dev
   - logrotate
   - libpam0g
   - libpam0g-dev
-  #- libmysqlclient-dev
+  - libmysqlclient-dev
+  - libzmq-dev
   #- collectd
   #- collectd-utils
   #- kvm

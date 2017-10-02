@@ -18,9 +18,10 @@
 #    - { role: monit,         tags: [ 'monit' ],       become: yes }
 #    - { role: metrics,       tags: [ 'metrics' ],     become: yes }
 
-# - hosts: devservers
-#   gather_facts: true
-#   roles:
+- hosts: devservers
+  gather_facts: true
+  roles:
+    - { role: jupyter, tags: ['jupyter' ]}
 #     - { role: redis, tags: ['redis'] }
 #     - { role: mysql, tags: ['mysql'] }
 #     - { role: puppetmaster, tags: ['puppetmaster'] }
