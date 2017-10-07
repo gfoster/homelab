@@ -21,7 +21,8 @@
 - hosts: devservers
   gather_facts: true
   roles:
-    - { role: jupyter, tags: ['jupyter' ]}
+    - { role: jupyter, tags: ['jupyter' ] }
+    - { role: plex, tags: ['plex'] }
 #     - { role: redis, tags: ['redis'] }
 #     - { role: mysql, tags: ['mysql'] }
 #     - { role: puppetmaster, tags: ['puppetmaster'] }

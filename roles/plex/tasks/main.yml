@@ -1,0 +1,33 @@
+- name: install Plex Media Server
+  apt:
+    deb: "{{ pms_url }}"
+    state: present
+
+- name: update the plex user group
+  user:
+    name: plex
+    group: users
+    state: present
+
+### todo update the /lib/systemd/system/plexmediaserver.service unit fle
+### and reload with systemctl daemon-reload
+
+- name: Install nfs client support
+  apt:
+    name: nfs-common
+
+- name: make sure we have a video mountpoint
+  file:
+    path: /video
+    state: directory
+    owner: plex
+    group: users
+
+- name: update fstab
+  lineinfile:
+    line: "diskstation:/volume1/video  /video   nfs      rw,soft,intr,vers=3,async  0     0"
+    state: present
+    path: /etc/fstab
+
+- name: mount everything
+  shell: "mount -a"
