@@ -1,0 +1,14 @@
+- name: create user accounts
+  user:
+    name: "{{ item.username }}"
+    comment: "{{ item.comment }}"
+    groups: "{{ item.groups }}"
+    shell: "{{ item.shell }}"
+  with_items: "{{ user_accounts }}"
+
+- name: 'make sudoer users'
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    line: "{{ item.username }} ALL=(ALL) NOPASSWD: ALL"
+  with_items: "{{ user_accounts }}"

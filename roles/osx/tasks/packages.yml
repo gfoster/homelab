@@ -1,0 +1,6 @@
+- name: Install homebrew packages
+  homebrew:
+    name: item.name
+    state: latest
+    update_homebrew: yes
+  with_items: {{ osx_packages }}

@@ -1,0 +1,4 @@
+# -*- mode: yaml -*-
+
+user_accounts:
+  - { username: "admin", comment: "admin user", groups: "sudo", shell: "/bin/bash" }
