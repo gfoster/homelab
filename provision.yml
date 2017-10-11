@@ -10,11 +10,11 @@
     register: output
     changed_when: output.stdout != ""
 
-# - hosts: all
-#   gather_facts: true
-#   roles:
-#     - { role: common,    tags: [ 'common' ] }
-#     - { role: packages, tags: [ 'packages' ],    become: yes }
+- hosts: ubuntu
+  gather_facts: true
+  roles:
+    - { role: common,    tags: [ 'common' ] }
+    - { role: packages, tags: [ 'packages' ],    become: yes }
 #    - { role: monit,         tags: [ 'monit' ],       become: yes }
 #    - { role: metrics,       tags: [ 'metrics' ],     become: yes }
 
@@ -22,11 +22,15 @@
   gather_facts: true
   roles:
     - { role: jupyter, tags: ['jupyter' ] }
-    - { role: plex, tags: ['plex'] }
 #     - { role: redis, tags: ['redis'] }
 #     - { role: mysql, tags: ['mysql'] }
 #     - { role: puppetmaster, tags: ['puppetmaster'] }
 
-- hosts: localhost
+- hosts: plex
   gather_facts: true
-  -  { role: osx, tags: ['osx'] }
+  roles:
+    - { role: plex, tags: ['plex'] }
+
+# - hosts: localhost
+#   gather_facts: true
+#     -  { role: osx, tags: ['osx'] }

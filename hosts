@@ -1,14 +1,17 @@
 [ubuntu]
 athena
+dobby
 
 [webservers]
 athena
 
 [devservers]
 athena
+dobby
 
 [grafana]
-athena
+dobby
 
 [plex]
 athena
+dobby
