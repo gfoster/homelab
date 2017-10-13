@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# enable passwordless sudo
+
+echo "enabling sudo"
+sudo sed -ie 's/^#includedir \(\/private\/etc\/sudoers.d\)/includedir \1/' /etc/sudoers
+mkdir /private/etc/sudoers.d
+echo "${USER}\t ALL=(ALL) NOPASSWD:ALL" > /private/etc/sudoers.d/${USER}
+
 # set up Apple command line tools
 xcode-select -p >/dev/null 2>&1
 
