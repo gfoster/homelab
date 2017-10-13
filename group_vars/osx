@@ -1,4 +1,21 @@
 # -*- mode: yaml -*-
 
-user_accounts:
-  - { username: "admin", comment: "admin user", groups: "sudo", shell: "/bin/bash" }
+brew_packages:
+  - git
+  - python3
+  - wget
+  - ripgrep
+  - rbenv
+  - go
+
+brew_casks:
+  - dropbox
+  - virtualbox
+  - virtualbox-extension-pack
+  - keybase
+  - virtualbox
+  - chrome-browser
+  - chrome-devtools
+  - calibre
+  - spotify
+  - 1password
