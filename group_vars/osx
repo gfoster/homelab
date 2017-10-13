@@ -1,21 +1,36 @@
 # -*- mode: yaml -*-
 
 brew_packages:
+  - coreutils
   - git
+  - go
+  - lua
+  - peco
   - python3
-  - wget
   - ripgrep
   - rbenv
-  - go
+  - wget
 
 brew_casks:
-  - dropbox
-  - virtualbox
-  - virtualbox-extension-pack
-  - keybase
-  - virtualbox
+  - 1password
+  - aquamacs
+  - calibre
+  - coderunner
   - chrome-browser
   - chrome-devtools
-  - calibre
+  - dash
+  - dropbox
+  - keybase
+  - omnigraffle
+  - omnifocus
+  - omnioutliner
+  - omniplan
+  - screenhero
+  - slack
+  - shimo
   - spotify
-  - 1password
+  - taskpaper
+  - vagrant
+  - vagrant-manager
+  - virtualbox
+  - virtualbox-extension-pack
