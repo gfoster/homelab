@@ -9,8 +9,9 @@ user_accounts:
   - { username: "gfoster", comment: "Gary Foster", groups: "sudo", shell: "/bin/bash" }
 
 ppa_list:
-  - "ppa:webupd8team/java"
   - "ppa:brightbox/ruby-ng"
+  - "ppa:webupd8team/java"
+  - ppa:masterminds/glide
 
 common_packages:
   - build-essential
@@ -23,6 +24,8 @@ common_packages:
   - landscape-common
   - sysstat
   - git
+  - golang-go
+  - glide
   - iftop
   - ntp
   - python-pip
