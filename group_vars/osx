@@ -1,4 +1,36 @@
 # -*- mode: yaml -*-
 
-user_accounts:
-  - { username: "admin", comment: "admin user", groups: "sudo", shell: "/bin/bash" }
+brew_packages:
+  - coreutils
+  - git
+  - go
+  - lua
+  - peco
+  - python3
+  - ripgrep
+  - rbenv
+  - wget
+
+brew_casks:
+  - 1password
+  - aquamacs
+  - calibre
+  - coderunner
+  - chrome-browser
+  - chrome-devtools
+  - dash
+  - dropbox
+  - keybase
+  - omnigraffle
+  - omnifocus
+  - omnioutliner
+  - omniplan
+  - screenhero
+  - slack
+  - shimo
+  - spotify
+  - taskpaper
+  - vagrant
+  - vagrant-manager
+  - virtualbox
+  - virtualbox-extension-pack
